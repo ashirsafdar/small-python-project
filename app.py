@@ -5,13 +5,17 @@ from pathlib import Path
 from flask import Flask, flash, g, redirect, render_template, request, url_for
 
 BASE_DIR = Path(__file__).resolve().parent
-INSTANCE_DIR = Path(os.environ.get("INSTANCE_DIR", BASE_DIR / "instance"))
+
+if os.environ.get("VERCEL"):
+    STORAGE_DIR = Path("/tmp")
+else:
+    STORAGE_DIR = Path(os.environ.get("INSTANCE_DIR", BASE_DIR / "instance"))
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-change-me")
-app.config["DATABASE"] = INSTANCE_DIR / "todo.sqlite3"
+app.config["DATABASE"] = STORAGE_DIR / "todo.sqlite3"
 
-INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
+STORAGE_DIR.mkdir(parents=True, exist_ok=True)
 with sqlite3.connect(app.config["DATABASE"]) as connection:
     connection.execute(
         """
