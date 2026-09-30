@@ -4,11 +4,14 @@ from pathlib import Path
 
 from flask import Flask, flash, g, redirect, render_template, request, url_for
 
+BASE_DIR = Path(__file__).resolve().parent
+INSTANCE_DIR = Path(os.environ.get("INSTANCE_DIR", BASE_DIR / "instance"))
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-change-me")
-app.config["DATABASE"] = Path(app.instance_path) / "todo.sqlite3"
+app.config["DATABASE"] = INSTANCE_DIR / "todo.sqlite3"
 
-Path(app.instance_path).mkdir(parents=True, exist_ok=True)
+INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
 with sqlite3.connect(app.config["DATABASE"]) as connection:
     connection.execute(
         """
@@ -92,4 +95,8 @@ def delete_task(task_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=False,
+    )
