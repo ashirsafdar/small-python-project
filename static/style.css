@@ -1,0 +1,127 @@
+* { box-sizing: border-box; }
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #f1f1f1;
+  color: #111;
+  font-family: Arial, sans-serif;
+}
+
+button, input { font: inherit; }
+
+.todo-card {
+  width: min(440px, calc(100% - 32px));
+  min-height: 415px;
+  margin: 8px auto 24px;
+  padding: 40px 20px 32px;
+  background: #fff;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 12%);
+}
+
+h1 {
+  margin: 0 0 23px;
+  font-size: 32px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.add-form input, .edit-form input {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.add-button {
+  min-height: 22px;
+  padding: 1px 7px;
+  cursor: pointer;
+}
+
+.task-list {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task-row {
+  display: flex;
+  min-height: 45px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: #f1f1f1;
+}
+
+.task-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 16px;
+}
+
+.task-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+.task-actions form { margin: 0; }
+
+.action-button {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: #6047f5;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.action-button:hover { background: #4d36dc; }
+
+.edit-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-form input { flex: 1; }
+.cancel-button { background: #777; }
+.cancel-button:hover { background: #5f5f5f; }
+.empty-state { padding: 12px 2px; color: #666; font-size: 14px; }
+.notice { margin: 10px 0 0; font-size: 13px; }
+.notice.error { color: #a22; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+@media (max-width: 380px) {
+  .todo-card { padding-right: 14px; padding-left: 14px; }
+  .task-row { align-items: flex-start; }
+  .task-actions { gap: 4px; }
+  .action-button { padding-right: 8px; padding-left: 8px; }
+  .edit-form { flex-wrap: wrap; }
+  .edit-form input { flex-basis: 100%; }
+}
